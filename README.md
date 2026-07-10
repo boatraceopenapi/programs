@@ -8,17 +8,36 @@
 [![v3](https://img.shields.io/badge/Boatrace_Open_API_for_Programs-v3-blue)](https://github.com/BoatraceOpenAPI/programs/tree/gh-pages/docs/v3)
 [![v2](https://img.shields.io/badge/Boatrace_Open_API_for_Programs-v2-lightgrey)](https://github.com/BoatraceOpenAPI/programs/tree/gh-pages/docs/v2)
 
+## 🛑 非推奨のお知らせ
+
+> ⚠️ 本リポジトリ（Boatrace Open API for Programs）は**今後の利用が推奨されません**。<br>
+> 
+> 👉 今後は後継リポジトリの [boatraceopenapi/api](https://github.com/boatraceopenapi/api) をご利用ください。
+
 ## ⚠️ 注意事項
 
-> ⚡ 本 API は**非公式**であり、BOATRACE 公式サイト・団体とは一切関係ありません。<br>
-> 🕒 データはリアルタイム更新ではなく、**約30分間隔で更新**されます。（ GitHub Actions のスケジュールは cron.yml を参照 ）<br>
-> 🔍 データの正確性・完全性を保証するものではありません。<br>
-> 🙇‍♂️ 利用は自己責任でお願いします。
+> **本 API を利用する前に、以下の内容をご確認ください。**
+>
+> - ⚡ **本 API は非公式です。**
+>   BOATRACE 公式サイトおよび関連団体とは一切関係ありません。
+>
+> - 🕒 **データはリアルタイムではありません。**
+>   GitHub Actions による約 1 時間間隔の定期更新を行っています。リアルタイム配信ではないため、最新の情報が反映されるまで数分程度の遅れが生じる場合があります。
+>
+> - 📊 **データの正確性・完全性は保証していません。**
+>   収集・変換の都合により、欠損や誤りが含まれる可能性があります。
+>
+> - 🚫 **公式な情報が必要な場合は、必ず BOATRACE 公式サイトをご確認ください。**
+>
+> - 🙇‍♂️ **本 API の利用は自己責任でお願いします。**
 
 ## 📌 概要
 
-この API では、ボートレース（ 競艇 ）の出走表データを取得できます。<br>
+この API では、ボートレース（競艇）のデータを取得できます。<br>
 データは GitHub Pages 上で公開されており、JSON 形式で提供されます。
+
+- **対応レース場**: 全国 24 場すべてに対応しています。特定のレース場のみを取り出すエンドポイントはなく、1日分のデータに全場の情報が含まれます。
+- **取得可能なデータ**: 出走表
 
 ## 🌐 エンドポイント
 
@@ -42,7 +61,7 @@ https://boatraceopenapi.github.io/programs/v2/YYYY/YYYYMMDD.json
 📅 YYYYMMDD → 年月日<br>
 （ 日付は日本標準時 JST〔UTC+9〕基準 ）
 
-※ 仕様上の欠陥により v1 は破棄されました。
+> **データが存在しない日付**（対応期間外・未来日付など）を指定した場合、GitHub Pages の仕様により **HTTP 404** が返されます。
 
 ## 🧩 サンプル
 
@@ -64,8 +83,7 @@ https://boatraceopenapi.github.io/programs/v2/YYYY/YYYYMMDD.json
 
 | 🏷️ 対象 | 📂 リポジトリ |
 |:--|:--|
-| ⏱️ 直前情報 | [Boatrace Open API for Previews](https://github.com/BoatraceOpenAPI/previews) |
-| 🏆 結果 | [Boatrace Open API for Results](https://github.com/BoatraceOpenAPI/results) |
+| 🆕 後継 API | [boatraceopenapi/api](https://github.com/boatraceopenapi/api) |
 
 ## 📄 ライセンス
 
