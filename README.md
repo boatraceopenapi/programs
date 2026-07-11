@@ -1,12 +1,10 @@
 # 🚤 Boatrace Open API for Programs
 
-[![cron](https://github.com/BoatraceOpenAPI/programs/actions/workflows/cron.yml/badge.svg)](https://github.com/BoatraceOpenAPI/programs/actions/workflows/cron.yml)
-[![pages-build-deployment](https://github.com/BoatraceOpenAPI/programs/actions/workflows/pages/pages-build-deployment/badge.svg)](https://github.com/BoatraceOpenAPI/programs/actions/workflows/pages/pages-build-deployment)
-[![issues](https://img.shields.io/github/issues/BoatraceOpenAPI/programs.svg)](https://github.com/BoatraceOpenAPI/programs/issues)
-[![pulls](https://img.shields.io/github/issues-pr/BoatraceOpenAPI/programs.svg)](https://github.com/BoatraceOpenAPI/programs/pulls)
+[![sync](https://github.com/boatraceopenapi/programs/actions/workflows/sync.yml/badge.svg)](https://github.com/boatraceopenapi/programs/actions/workflows/sync.yml)
+[![pages-build-deployment](https://github.com/boatraceopenapi/programs/actions/workflows/pages/pages-build-deployment/badge.svg)](https://github.com/boatraceopenapi/programs/actions/workflows/pages/pages-build-deployment)
 [![license](https://img.shields.io/badge/license-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![v3](https://img.shields.io/badge/Boatrace_Open_API_for_Programs-v3-blue)](https://github.com/BoatraceOpenAPI/programs/tree/gh-pages/docs/v3)
-[![v2](https://img.shields.io/badge/Boatrace_Open_API_for_Programs-v2-lightgrey)](https://github.com/BoatraceOpenAPI/programs/tree/gh-pages/docs/v2)
+[![v3](https://img.shields.io/badge/Boatrace_Open_API_for_Programs-v3-blue)](https://github.com/boatraceopenapi/programs/tree/gh-pages/docs/v3)
+[![v2](https://img.shields.io/badge/Boatrace_Open_API_for_Programs-v2-lightgrey)](https://github.com/boatraceopenapi/programs/tree/gh-pages/docs/v2)
 
 ## 🛑 非推奨のお知らせ
 
@@ -41,7 +39,7 @@
 
 ## 🌐 エンドポイント
 
-### [![v3](https://img.shields.io/badge/Boatrace_Open_API_for_Programs-v3-blue)](https://github.com/BoatraceOpenAPI/programs/tree/gh-pages/docs/v3)
+### [![v3](https://img.shields.io/badge/Boatrace_Open_API_for_Programs-v3-blue)](https://github.com/boatraceopenapi/programs/tree/gh-pages/docs/v3)
 
 > 📅 対応期間: 2023年05月01日以降
 
@@ -49,7 +47,7 @@
 https://boatraceopenapi.github.io/programs/v3/YYYY/YYYYMMDD.json
 ```
 
-### [![v2](https://img.shields.io/badge/Boatrace_Open_API_for_Programs-v2-lightgrey)](https://github.com/BoatraceOpenAPI/programs/tree/gh-pages/docs/v2)
+### [![v2](https://img.shields.io/badge/Boatrace_Open_API_for_Programs-v2-lightgrey)](https://github.com/boatraceopenapi/programs/tree/gh-pages/docs/v2)
 
 > 📅 対応期間: 2025年05月01日以降
 
@@ -65,14 +63,14 @@ https://boatraceopenapi.github.io/programs/v2/YYYY/YYYYMMDD.json
 
 ## 🧩 サンプル
 
-### [![v3](https://img.shields.io/badge/Boatrace_Open_API_for_Programs-v3-blue)](https://github.com/BoatraceOpenAPI/programs/tree/gh-pages/docs/v3)
+### [![v3](https://img.shields.io/badge/Boatrace_Open_API_for_Programs-v3-blue)](https://github.com/boatraceopenapi/programs/tree/gh-pages/docs/v3)
 
 - 2025年05月01日の出走表
   - [https://boatraceopenapi.github.io/programs/v3/2025/20250501.json](https://boatraceopenapi.github.io/programs/v3/2025/20250501.json)
 - 本日の出走表（ JST〔UTC+9〕基準 ）
   - [https://boatraceopenapi.github.io/programs/v3/today.json](https://boatraceopenapi.github.io/programs/v3/today.json)
 
-### [![v2](https://img.shields.io/badge/Boatrace_Open_API_for_Programs-v2-lightgrey)](https://github.com/BoatraceOpenAPI/programs/tree/gh-pages/docs/v2)
+### [![v2](https://img.shields.io/badge/Boatrace_Open_API_for_Programs-v2-lightgrey)](https://github.com/boatraceopenapi/programs/tree/gh-pages/docs/v2)
 
 - 2025年05月01日の出走表
   - [https://boatraceopenapi.github.io/programs/v2/2025/20250501.json](https://boatraceopenapi.github.io/programs/v2/2025/20250501.json)

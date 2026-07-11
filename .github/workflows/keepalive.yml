@@ -1,4 +1,4 @@
-name: keepalive
+name: Keepalive
 
 on:
   schedule:
@@ -14,15 +14,15 @@ permissions:
 
 jobs:
   keepalive:
-    name: Keep Workflows Alive on Ubuntu 24.04
+    name: Keepalive (Ubuntu 24.04)
     runs-on: ubuntu-24.04
     steps:
-      - name: Re-enable Workflows
+      - name: Re-enable workflows
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          gh workflow enable cron.yml --repo $GITHUB_REPOSITORY
+          gh workflow enable audit.yml --repo $GITHUB_REPOSITORY
           gh workflow enable keepalive.yml --repo $GITHUB_REPOSITORY
           gh workflow enable psalm.yml --repo $GITHUB_REPOSITORY
-          gh workflow enable security.yml --repo $GITHUB_REPOSITORY
+          gh workflow enable sync.yml --repo $GITHUB_REPOSITORY
           gh workflow enable test.yml --repo $GITHUB_REPOSITORY

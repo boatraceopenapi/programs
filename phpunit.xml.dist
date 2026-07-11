@@ -16,10 +16,4 @@
             <directory>src/</directory>
         </include>
     </source>
-
-    <coverage>
-        <report>
-            <clover outputFile="build/coverage-xml/coverage.xml"/>
-        </report>
-    </coverage>
 </phpunit>

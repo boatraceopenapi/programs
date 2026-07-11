@@ -3,7 +3,13 @@ updates:
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
-      interval: "daily"
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+      timezone: "Asia/Tokyo"
     commit-message:
-      prefix: "deps"
+      prefix: "chore"
+      prefix-development: "chore"
       include: "scope"
+    labels: ["dependencies", "github-actions"]
+    open-pull-requests-limit: 10

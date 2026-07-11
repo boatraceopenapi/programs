@@ -1,4 +1,4 @@
-name: Psalm
+name: Audit
 
 on:
   push:
@@ -10,19 +10,18 @@ on:
   workflow_dispatch:
 
 jobs:
-  psalm:
-    name: Psalm on PHP ${{ matrix.php-version }} (Ubuntu 24.04)
+  audit:
+    name: Audit on PHP ${{ matrix.php-version }} (Ubuntu 24.04)
     runs-on: ubuntu-24.04
     strategy:
       matrix:
         php-version:
-          - '8.5'
+          - '8.4'
     steps:
       - name: Setup PHP ${{ matrix.php-version }}
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php-version }}
-          extensions: mbstring, xml
 
       - name: Checkout repository
         uses: actions/checkout@v7
@@ -32,5 +31,5 @@ jobs:
       - name: Install dependencies
         run: composer update --prefer-dist --no-interaction --no-progress
 
-      - name: Run Psalm
-        run: vendor/bin/psalm --config=psalm.xml.dist --output-format=github --show-info=true --no-progress
+      - name: Audit composer
+        run: composer audit
