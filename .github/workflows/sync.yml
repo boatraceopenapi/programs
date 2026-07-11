@@ -49,7 +49,7 @@ jobs:
       - name: Install dependencies (without scraper)
         run: |
           composer remove bvp/scraper --no-update || true
-          composer install--no-interaction --no-progress
+          composer install --prefer-dist --no-interaction --no-progress
 
       - name: Require bvp/scraper ^6.0
         run: |
@@ -145,15 +145,10 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-php${{ matrix.php-version }}-composer-
 
-      - name: Install base dependencies (without scraper)
-        run: |
-          composer remove bvp/scraper --no-update || true
-          composer install --no-interaction --no-progress
-
       - name: Install dependencies (without scraper)
         run: |
           composer remove bvp/scraper --no-update || true
-          composer install--no-interaction --no-progress
+          composer install --prefer-dist --no-interaction --no-progress
 
       - name: Require bvp/scraper ^5.0
         run: |
