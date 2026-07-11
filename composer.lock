@@ -113,16 +113,16 @@
         },
         {
             "name": "bvp/scraper",
-            "version": "6.1.2",
+            "version": "6.1.3",
             "source": {
                 "type": "git",
-                "url": "https://github.com/shimomo/bvp-scraper.git",
-                "reference": "e9af7c3cdd15842ae81071e43f10efc1e73e6f18"
+                "url": "https://github.com/boatracevibeproject/scraper.git",
+                "reference": "524c21b360516970f1f69e455c7e9795ac898f2f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/shimomo/bvp-scraper/zipball/e9af7c3cdd15842ae81071e43f10efc1e73e6f18",
-                "reference": "e9af7c3cdd15842ae81071e43f10efc1e73e6f18",
+                "url": "https://api.github.com/repos/boatracevibeproject/scraper/zipball/524c21b360516970f1f69e455c7e9795ac898f2f",
+                "reference": "524c21b360516970f1f69e455c7e9795ac898f2f",
                 "shasum": ""
             },
             "require": {
@@ -165,7 +165,7 @@
                 "issues": "https://github.com/shimomo/bvp-scraper/issues",
                 "source": "https://github.com/shimomo/bvp-scraper"
             },
-            "time": "2026-03-23T19:24:05+00:00"
+            "time": "2026-07-11T15:39:49+00:00"
         },
         {
             "name": "bvp/stadium",
