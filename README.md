@@ -1,10 +1,16 @@
 # 🚤 Boatrace Open API for Programs
 
-[![sync](https://github.com/boatraceopenapi/programs/actions/workflows/sync.yml/badge.svg)](https://github.com/boatraceopenapi/programs/actions/workflows/sync.yml)
-[![pages-build-deployment](https://github.com/boatraceopenapi/programs/actions/workflows/pages/pages-build-deployment/badge.svg)](https://github.com/boatraceopenapi/programs/actions/workflows/pages/pages-build-deployment)
-[![license](https://img.shields.io/badge/license-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![v3](https://img.shields.io/badge/Boatrace_Open_API_for_Programs-v3-blue)](https://github.com/boatraceopenapi/programs/tree/gh-pages/docs/v3)
 [![v2](https://img.shields.io/badge/Boatrace_Open_API_for_Programs-v2-lightgrey)](https://github.com/boatraceopenapi/programs/tree/gh-pages/docs/v2)
+[![license](https://img.shields.io/badge/license-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+[![pages-build-deployment](https://github.com/boatraceopenapi/programs/actions/workflows/pages/pages-build-deployment/badge.svg)](https://github.com/boatraceopenapi/programs/actions/workflows/pages/pages-build-deployment)
+[![test](https://github.com/boatraceopenapi/programs/actions/workflows/test.yml/badge.svg)](https://github.com/boatraceopenapi/programs/actions/workflows/test.yml)
+[![psalm](https://github.com/boatraceopenapi/programs/actions/workflows/psalm.yml/badge.svg)](https://github.com/boatraceopenapi/programs/actions/workflows/psalm.yml)
+[![audit](https://github.com/boatraceopenapi/programs/actions/workflows/audit.yml/badge.svg)](https://github.com/boatraceopenapi/programs/actions/workflows/audit.yml)
+[![sync](https://github.com/boatraceopenapi/programs/actions/workflows/sync.yml/badge.svg)](https://github.com/boatraceopenapi/programs/actions/workflows/sync.yml)
+[![keepalive](https://github.com/boatraceopenapi/programs/actions/workflows/keepalive.yml/badge.svg)](https://github.com/boatraceopenapi/programs/actions/workflows/keepalive.yml)
+[![dependabot-updates](https://github.com/boatraceopenapi/programs/actions/workflows/dependabot/dependabot-updates/badge.svg)](https://github.com/boatraceopenapi/programs/actions/workflows/dependabot/dependabot-updates)
 
 ## 🛑 非推奨のお知らせ
 
