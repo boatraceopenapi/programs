@@ -10,20 +10,30 @@ use Carbon\CarbonImmutable as Carbon;
 
 $version = $argv[1] ?? 'v3';
 
-$date = Carbon::today('Asia/Tokyo');
+$today = Carbon::today('Asia/Tokyo');
+$todayY = $today->format('Y');
+$todayYmd = $today->format('Ymd');
 
-$dateY = $date->format('Y');
-$dateYmd = $date->format('Ymd');
+$yesterday = $today->subDay();
+$yesterdayY = $yesterday->format('Y');
+$yesterdayYmd = $yesterday->format('Ymd');
 
-$payload = ['programs' => []];
+$payload = [
+    'today' => ['programs' => []],
+    'yesterday' => ['programs' => []],
+];
 
 if ($version === 'v2' || $version === 'v3') {
-    $payload['programs'] = Synchronizer::sync($date);
+    $payload['today']['programs'] = Synchronizer::sync($today);
+    $payload['yesterday']['programs'] = Synchronizer::sync($yesterday);
 }
 
-if ($payload['programs'] === []) {
-    exit;
+if ($payload['today']['programs'] !== []) {
+    Storage::save("docs/{$version}/{$todayY}/{$todayYmd}.json", $payload);
+    Storage::save("docs/{$version}/today.json", $payload);
 }
 
-Storage::save("docs/{$version}/{$dateY}/{$dateYmd}.json", $payload);
-Storage::save("docs/{$version}/today.json", $payload);
+if ($payload['yesterday']['programs'] !== []) {
+    Storage::save("docs/{$version}/{$yesterdayY}/{$yesterdayYmd}.json", $payload);
+    Storage::save("docs/{$version}/yesterday.json", $payload);
+}
