@@ -61,6 +61,7 @@ jobs:
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git checkout -- composer.json composer.lock 2>/dev/null || true
           git pull --rebase origin "${TARGET_BRANCH}"
 
       - name: Sync JSON files
@@ -160,6 +161,7 @@ jobs:
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git checkout -- composer.json composer.lock 2>/dev/null || true
           git pull --rebase origin "${TARGET_BRANCH}"
 
       - name: Sync JSON files
