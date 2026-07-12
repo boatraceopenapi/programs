@@ -29,11 +29,11 @@ if ($version === 'v2' || $version === 'v3') {
 }
 
 if ($payload['today']['programs'] !== []) {
-    Storage::save("docs/{$version}/{$todayY}/{$todayYmd}.json", $payload);
-    Storage::save("docs/{$version}/today.json", $payload);
+    Storage::save("docs/{$version}/{$todayY}/{$todayYmd}.json", $payload['today']);
+    Storage::save("docs/{$version}/today.json", $payload['today']);
 }
 
 if ($payload['yesterday']['programs'] !== []) {
-    Storage::save("docs/{$version}/{$yesterdayY}/{$yesterdayYmd}.json", $payload);
-    Storage::save("docs/{$version}/yesterday.json", $payload);
+    Storage::save("docs/{$version}/{$yesterdayY}/{$yesterdayYmd}.json", $payload['yesterday']);
+    Storage::save("docs/{$version}/yesterday.json", $payload['yesterday']);
 }
