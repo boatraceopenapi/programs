@@ -83,7 +83,7 @@ jobs:
           CHANGED=""
 
           for i in $(seq 1 "$DAYS"); do
-            oldest=$(find docs/v3 -regextype posix-extended -regex '.*/[0-9]{4}/[0-9]{8}\.json' | sort | head -n1)
+            oldest=$(find docs/v3 -regextype posix-extended -regex '.*/[0-9]{4}/[0-9]{8}\.json' | sort 2>/dev/null | head -n1)
             if [ -z "$oldest" ]; then
               echo "既存の日付付きJSONが見つかりません。中断します。"
               exit 1
