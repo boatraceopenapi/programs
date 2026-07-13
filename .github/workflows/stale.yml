@@ -1,0 +1,46 @@
+name: Close Stale Issues And Pull Requests
+
+on:
+  schedule:
+    - cron: '0 0 * * *'
+  workflow_dispatch:
+
+permissions:
+  issues: write
+  pull-requests: write
+
+jobs:
+  stale:
+    name: Stale (Ubuntu 24.04)
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Close stale issues and pull requests
+        uses: actions/stale@v10
+        with:
+          days-before-issue-stale: 30
+          days-before-issue-close: 7
+          stale-issue-label: 'stale'
+          stale-issue-message: >
+            This issue has been automatically marked as stale because it has not had
+            recent activity. It will be closed in 7 days if no further activity occurs.
+            Thank you for your contributions.
+          close-issue-message: >
+            This issue has been automatically closed because it has not had recent
+            activity after being marked as stale. Feel free to reopen if this is still
+            relevant.
+          close-issue-reason: 'not_planned'
+          days-before-pr-stale: 30
+          days-before-pr-close: 7
+          stale-pr-label: 'stale'
+          stale-pr-message: >
+            This pull request has been automatically marked as stale because it has not
+            had recent activity. It will be closed in 7 days if no further activity occurs.
+          close-pr-message: >
+            This pull request has been automatically closed because it has not had recent
+            activity after being marked as stale.
+          exempt-issue-labels: 'pinned,security,no-stale'
+          exempt-pr-labels: 'pinned,security,no-stale'
+          exempt-all-milestones: true
+          operations-per-run: 100
+          remove-stale-when-updated: true
+          ascending: true
