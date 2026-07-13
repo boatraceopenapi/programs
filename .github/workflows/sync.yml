@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 concurrency:
-  group: cron-${{ github.ref }}
+  group: sync-${{ github.ref }}
   cancel-in-progress: false
 
 permissions:
