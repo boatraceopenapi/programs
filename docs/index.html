@@ -1,462 +1,765 @@
 <!DOCTYPE html>
 <html lang="ja">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Boatrace Open API for Programs</title>
-<meta name="description" content="ボートレース出走表データを配信する非公式オープンAPI。全国24場・v2/v3エンドポイント対応。">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Teko:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --bg-base:#0b0f14;
-    --bg-panel:#121822;
-    --bg-panel-2:#161e2b;
-    --line:#232d3b;
-    --text-primary:#eef1f5;
-    --text-muted:#8a95a6;
-    --text-faint:#5b6472;
-    --amber:#f2a93b;
-    --amber-dim:#3a2c14;
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Boatrace Open API for Programs</title>
+        <meta name="description" content="ボートレース出走表データを配信する非公式オープンAPI。全国24場・v2/v3エンドポイント対応。" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link href="https://fonts.googleapis.com/css2?family=Teko:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+        <style>
+            :root {
+                --bg-base: #0b0f14;
+                --bg-panel: #121822;
+                --bg-panel-2: #161e2b;
+                --line: #232d3b;
+                --text-primary: #eef1f5;
+                --text-muted: #8a95a6;
+                --text-faint: #5b6472;
+                --amber: #f2a93b;
+                --amber-dim: #3a2c14;
+                --lane-1: #f7f7f2;
+                --lane-1-ink: #0b0f14;
+                --lane-2: #1a1a1a;
+                --lane-2-ink: #f7f7f2;
+                --lane-3: #e2362e;
+                --lane-3-ink: #fff;
+                --lane-4: #1e6fd9;
+                --lane-4-ink: #fff;
+                --lane-5: #f2c94c;
+                --lane-5-ink: #1a1300;
+                --lane-6: #2fa84f;
+                --lane-6-ink: #fff;
+                --radius: 10px;
+                --display: "Teko", sans-serif;
+                --body:
+                    "Inter", -apple-system, "Hiragino Kaku Gothic ProN",
+                    "Yu Gothic", sans-serif;
+                --mono:
+                    "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo,
+                    monospace;
+            }
 
-    --lane-1:#f7f7f2;
-    --lane-1-ink:#0b0f14;
-    --lane-2:#1a1a1a;
-    --lane-2-ink:#f7f7f2;
-    --lane-3:#e2362e;
-    --lane-3-ink:#fff;
-    --lane-4:#1e6fd9;
-    --lane-4-ink:#fff;
-    --lane-5:#f2c94c;
-    --lane-5-ink:#1a1300;
-    --lane-6:#2fa84f;
-    --lane-6-ink:#fff;
+            * {
+                box-sizing: border-box;
+            }
+            html {
+                scroll-behavior: smooth;
+            }
+            @media (prefers-reduced-motion: reduce) {
+                html {
+                    scroll-behavior: auto;
+                }
+                * {
+                    animation-duration: 0.001ms !important;
+                    animation-iteration-count: 1 !important;
+                    transition-duration: 0.001ms !important;
+                }
+            }
 
-    --radius:10px;
-    --display: 'Teko', sans-serif;
-    --body: 'Inter', -apple-system, "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif;
-    --mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
-  }
+            html,
+            body {
+                max-width: 100%;
+                overflow-x: hidden;
+            }
 
-  *{box-sizing:border-box;}
-  html{scroll-behavior:smooth;}
-  @media (prefers-reduced-motion: reduce){
-    html{scroll-behavior:auto;}
-    *{animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important;}
-  }
+            body {
+                margin: 0;
+                background: var(--bg-base);
+                background-image:
+                    radial-gradient(
+                        ellipse 1200px 600px at 15% -10%,
+                        rgba(30, 111, 217, 0.1),
+                        transparent 60%
+                    ),
+                    radial-gradient(
+                        ellipse 900px 500px at 100% 0%,
+                        rgba(47, 168, 79, 0.06),
+                        transparent 55%
+                    );
+                color: var(--text-primary);
+                font-family: var(--body);
+                line-height: 1.6;
+                -webkit-font-smoothing: antialiased;
+            }
 
-  html, body{
-    max-width:100%;
-    overflow-x:hidden;
-  }
+            a {
+                color: inherit;
+            }
+            :focus-visible {
+                outline: 2px solid var(--lane-4);
+                outline-offset: 3px;
+                border-radius: 4px;
+            }
 
-  body{
-    margin:0;
-    background:var(--bg-base);
-    background-image:
-      radial-gradient(ellipse 1200px 600px at 15% -10%, rgba(30,111,217,0.10), transparent 60%),
-      radial-gradient(ellipse 900px 500px at 100% 0%, rgba(47,168,79,0.06), transparent 55%);
-    color:var(--text-primary);
-    font-family:var(--body);
-    line-height:1.6;
-    -webkit-font-smoothing:antialiased;
-  }
+            .wrap {
+                max-width: 920px;
+                margin: 0 auto;
+                padding: 0 24px;
+            }
 
-  a{color:inherit;}
-  :focus-visible{outline:2px solid var(--lane-4); outline-offset:3px; border-radius:4px;}
+            /* ---------- lane strip (signature element) ---------- */
+            .lane-strip {
+                display: flex;
+                width: 100%;
+                height: 6px;
+            }
+            .lane-strip span {
+                flex: 1;
+            }
+            .lane-strip .l1 {
+                background: var(--lane-1);
+            }
+            .lane-strip .l2 {
+                background: var(--lane-2);
+            }
+            .lane-strip .l3 {
+                background: var(--lane-3);
+            }
+            .lane-strip .l4 {
+                background: var(--lane-4);
+            }
+            .lane-strip .l5 {
+                background: var(--lane-5);
+            }
+            .lane-strip .l6 {
+                background: var(--lane-6);
+            }
 
-  .wrap{max-width:920px; margin:0 auto; padding:0 24px;}
+            /* ---------- header / hero ---------- */
+            header.hero {
+                padding: 64px 0 40px;
+            }
+            .eyebrow {
+                font-family: var(--mono);
+                font-size: 12.5px;
+                letter-spacing: 0.08em;
+                color: var(--text-muted);
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                margin-bottom: 22px;
+            }
+            .eyebrow .pill {
+                border: 1px solid var(--line);
+                border-radius: 999px;
+                padding: 3px 10px;
+                color: var(--text-muted);
+            }
 
-  /* ---------- lane strip (signature element) ---------- */
-  .lane-strip{display:flex; width:100%; height:6px;}
-  .lane-strip span{flex:1;}
-  .lane-strip .l1{background:var(--lane-1);}
-  .lane-strip .l2{background:var(--lane-2);}
-  .lane-strip .l3{background:var(--lane-3);}
-  .lane-strip .l4{background:var(--lane-4);}
-  .lane-strip .l5{background:var(--lane-5);}
-  .lane-strip .l6{background:var(--lane-6);}
+            .lane-board {
+                display: inline-flex;
+                gap: 3px;
+                padding: 6px;
+                background: var(--bg-panel);
+                border: 1px solid var(--line);
+                border-radius: 8px;
+                margin-bottom: 28px;
+            }
+            .lane-board .num {
+                width: 30px;
+                height: 30px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-family: var(--display);
+                font-weight: 600;
+                font-size: 19px;
+                border-radius: 5px;
+                line-height: 1;
+            }
+            .lane-board .n1 {
+                background: var(--lane-1);
+                color: var(--lane-1-ink);
+                border: 1px solid #d8d8d0;
+            }
+            .lane-board .n2 {
+                background: var(--lane-2);
+                color: var(--lane-2-ink);
+                border: 1px solid #3a3a3a;
+            }
+            .lane-board .n3 {
+                background: var(--lane-3);
+                color: var(--lane-3-ink);
+            }
+            .lane-board .n4 {
+                background: var(--lane-4);
+                color: var(--lane-4-ink);
+            }
+            .lane-board .n5 {
+                background: var(--lane-5);
+                color: var(--lane-5-ink);
+            }
+            .lane-board .n6 {
+                background: var(--lane-6);
+                color: var(--lane-6-ink);
+            }
 
-  /* ---------- header / hero ---------- */
-  header.hero{padding:64px 0 40px;}
-  .eyebrow{
-    font-family:var(--mono);
-    font-size:12.5px;
-    letter-spacing:0.08em;
-    color:var(--text-muted);
-    display:flex; align-items:center; gap:10px;
-    margin-bottom:22px;
-  }
-  .eyebrow .pill{
-    border:1px solid var(--line);
-    border-radius:999px;
-    padding:3px 10px;
-    color:var(--text-muted);
-  }
+            h1 {
+                font-family: var(--display);
+                font-weight: 600;
+                font-size: clamp(44px, 8vw, 76px);
+                line-height: 0.98;
+                letter-spacing: 0.005em;
+                margin: 0 0 18px;
+            }
+            h1 .accent {
+                color: var(--lane-4);
+            }
 
-  .lane-board{
-    display:inline-flex;
-    gap:3px;
-    padding:6px;
-    background:var(--bg-panel);
-    border:1px solid var(--line);
-    border-radius:8px;
-    margin-bottom:28px;
-  }
-  .lane-board .num{
-    width:30px; height:30px;
-    display:flex; align-items:center; justify-content:center;
-    font-family:var(--display);
-    font-weight:600;
-    font-size:19px;
-    border-radius:5px;
-    line-height:1;
-  }
-  .lane-board .n1{background:var(--lane-1); color:var(--lane-1-ink); border:1px solid #d8d8d0;}
-  .lane-board .n2{background:var(--lane-2); color:var(--lane-2-ink); border:1px solid #3a3a3a;}
-  .lane-board .n3{background:var(--lane-3); color:var(--lane-3-ink);}
-  .lane-board .n4{background:var(--lane-4); color:var(--lane-4-ink);}
-  .lane-board .n5{background:var(--lane-5); color:var(--lane-5-ink);}
-  .lane-board .n6{background:var(--lane-6); color:var(--lane-6-ink);}
+            .lede {
+                font-size: 17px;
+                color: var(--text-muted);
+                max-width: 56ch;
+                margin: 0 0 30px;
+            }
+            .lede strong {
+                color: var(--text-primary);
+                font-weight: 600;
+            }
 
-  h1{
-    font-family:var(--display);
-    font-weight:600;
-    font-size:clamp(44px, 8vw, 76px);
-    line-height:0.98;
-    letter-spacing:0.005em;
-    margin:0 0 18px;
-  }
-  h1 .accent{color:var(--lane-4);}
+            .hero-actions {
+                display: flex;
+                gap: 12px;
+                flex-wrap: wrap;
+            }
+            .btn {
+                font-family: var(--body);
+                font-weight: 600;
+                font-size: 14.5px;
+                padding: 11px 20px;
+                border-radius: 8px;
+                border: 1px solid var(--line);
+                background: var(--bg-panel);
+                color: var(--text-primary);
+                text-decoration: none;
+                display: inline-flex;
+                align-items: center;
+                gap: 8px;
+                transition:
+                    border-color 0.15s ease,
+                    transform 0.15s ease;
+            }
+            .btn:hover {
+                border-color: var(--lane-4);
+                transform: translateY(-1px);
+            }
+            .btn.primary {
+                background: var(--lane-4);
+                border-color: var(--lane-4);
+                color: #fff;
+            }
+            .btn.primary:hover {
+                background: #2a7ce6;
+            }
 
-  .lede{
-    font-size:17px;
-    color:var(--text-muted);
-    max-width:56ch;
-    margin:0 0 30px;
-  }
-  .lede strong{color:var(--text-primary); font-weight:600;}
+            /* ---------- deprecation board ---------- */
+            .board {
+                margin: 8px 0 56px;
+                border: 1px solid #3a2f16;
+                background: linear-gradient(180deg, var(--amber-dim), #1a140a);
+                border-radius: var(--radius);
+                padding: 22px 24px;
+                position: relative;
+                overflow: hidden;
+            }
+            .board::before {
+                content: "";
+                position: absolute;
+                left: 0;
+                top: 0;
+                bottom: 0;
+                width: 4px;
+                background: var(--amber);
+            }
+            .board-head {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                font-family: var(--mono);
+                font-size: 12.5px;
+                letter-spacing: 0.06em;
+                color: var(--amber);
+                text-transform: uppercase;
+                margin-bottom: 12px;
+            }
+            .board p {
+                margin: 0 0 10px;
+                color: #e7dcc4;
+                font-size: 15px;
+            }
+            .board p:last-child {
+                margin-bottom: 0;
+            }
+            .board a {
+                color: var(--amber);
+                text-decoration: underline;
+                text-underline-offset: 3px;
+            }
+            .board .note {
+                color: #b6ac93;
+                font-size: 14px;
+            }
 
-  .hero-actions{display:flex; gap:12px; flex-wrap:wrap;}
-  .btn{
-    font-family:var(--body);
-    font-weight:600;
-    font-size:14.5px;
-    padding:11px 20px;
-    border-radius:8px;
-    border:1px solid var(--line);
-    background:var(--bg-panel);
-    color:var(--text-primary);
-    text-decoration:none;
-    display:inline-flex;
-    align-items:center;
-    gap:8px;
-    transition:border-color .15s ease, transform .15s ease;
-  }
-  .btn:hover{border-color:var(--lane-4); transform:translateY(-1px);}
-  .btn.primary{background:var(--lane-4); border-color:var(--lane-4); color:#fff;}
-  .btn.primary:hover{background:#2a7ce6;}
+            /* ---------- sections ---------- */
+            section {
+                padding: 52px 0;
+                border-top: 1px solid var(--line);
+            }
+            .section-head {
+                display: flex;
+                align-items: baseline;
+                gap: 14px;
+                margin-bottom: 26px;
+            }
+            .section-head .tag {
+                font-family: var(--mono);
+                font-size: 12px;
+                color: var(--text-faint);
+                border: 1px solid var(--line);
+                border-radius: 6px;
+                padding: 2px 8px;
+            }
+            h2 {
+                font-family: var(--display);
+                font-weight: 600;
+                font-size: 30px;
+                letter-spacing: 0.01em;
+                margin: 0;
+            }
+            .section-sub {
+                color: var(--text-muted);
+                font-size: 14.5px;
+                margin: -14px 0 26px;
+            }
 
-  /* ---------- deprecation board ---------- */
-  .board{
-    margin:8px 0 56px;
-    border:1px solid #3a2f16;
-    background:linear-gradient(180deg, var(--amber-dim), #1a140a);
-    border-radius:var(--radius);
-    padding:22px 24px;
-    position:relative;
-    overflow:hidden;
-  }
-  .board::before{
-    content:"";
-    position:absolute; left:0; top:0; bottom:0; width:4px;
-    background:var(--amber);
-  }
-  .board-head{
-    display:flex; align-items:center; gap:10px;
-    font-family:var(--mono);
-    font-size:12.5px;
-    letter-spacing:0.06em;
-    color:var(--amber);
-    text-transform:uppercase;
-    margin-bottom:12px;
-  }
-  .board p{margin:0 0 10px; color:#e7dcc4; font-size:15px;}
-  .board p:last-child{margin-bottom:0;}
-  .board a{color:var(--amber); text-decoration:underline; text-underline-offset:3px;}
-  .board .note{color:#b6ac93; font-size:14px;}
+            /* endpoint cards */
+            .cards {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 16px;
+            }
+            @media (max-width: 680px) {
+                .cards {
+                    grid-template-columns: 1fr;
+                }
+            }
+            .card {
+                background: var(--bg-panel);
+                border: 1px solid var(--line);
+                border-radius: var(--radius);
+                padding: 20px 20px 18px;
+                min-width: 0;
+            }
+            .card-top {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                margin-bottom: 10px;
+            }
+            .ver {
+                font-family: var(--display);
+                font-weight: 600;
+                font-size: 22px;
+            }
+            .ver.v3 {
+                color: var(--lane-4);
+            }
+            .ver.v2 {
+                color: var(--text-faint);
+            }
+            .period {
+                font-family: var(--mono);
+                font-size: 12px;
+                color: var(--text-muted);
+            }
 
-  /* ---------- sections ---------- */
-  section{padding:52px 0; border-top:1px solid var(--line);}
-  .section-head{display:flex; align-items:baseline; gap:14px; margin-bottom:26px;}
-  .section-head .tag{
-    font-family:var(--mono); font-size:12px; color:var(--text-faint);
-    border:1px solid var(--line); border-radius:6px; padding:2px 8px;
-  }
-  h2{
-    font-family:var(--display);
-    font-weight:600;
-    font-size:30px;
-    letter-spacing:0.01em;
-    margin:0;
-  }
-  .section-sub{color:var(--text-muted); font-size:14.5px; margin:-14px 0 26px;}
+            .url-row {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                background: var(--bg-base);
+                border: 1px solid var(--line);
+                border-radius: 7px;
+                padding: 9px 10px;
+                margin-top: 12px;
+                min-width: 0;
+            }
+            .url-row code {
+                font-family: var(--mono);
+                font-size: 12.5px;
+                color: var(--text-primary);
+                overflow-x: auto;
+                white-space: nowrap;
+                flex: 1;
+                min-width: 0;
+            }
+            .copy-btn {
+                font-family: var(--mono);
+                font-size: 11px;
+                color: var(--text-muted);
+                background: transparent;
+                border: 1px solid var(--line);
+                border-radius: 5px;
+                padding: 5px 8px;
+                cursor: pointer;
+                flex-shrink: 0;
+                transition:
+                    color 0.15s ease,
+                    border-color 0.15s ease;
+            }
+            .copy-btn:hover {
+                color: var(--text-primary);
+                border-color: var(--lane-4);
+            }
+            .copy-btn.copied {
+                color: var(--lane-6);
+                border-color: var(--lane-6);
+            }
 
-  /* endpoint cards */
-  .cards{display:grid; grid-template-columns:1fr 1fr; gap:16px;}
-  @media (max-width:680px){.cards{grid-template-columns:1fr;}}
-  .card{
-    background:var(--bg-panel);
-    border:1px solid var(--line);
-    border-radius:var(--radius);
-    padding:20px 20px 18px;
-    min-width:0;
-  }
-  .card-top{display:flex; align-items:center; justify-content:space-between; margin-bottom:10px;}
-  .ver{
-    font-family:var(--display); font-weight:600; font-size:22px;
-  }
-  .ver.v3{color:var(--lane-4);}
-  .ver.v2{color:var(--text-faint);}
-  .period{font-family:var(--mono); font-size:12px; color:var(--text-muted);}
+            /* sample links */
+            .sample-list {
+                list-style: none;
+                margin: 0;
+                padding: 0;
+                display: grid;
+                gap: 10px;
+            }
+            .sample-list li {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 16px;
+                background: var(--bg-panel);
+                border: 1px solid var(--line);
+                border-radius: 8px;
+                padding: 13px 16px;
+            }
+            .sample-list .label {
+                font-size: 14px;
+                color: var(--text-muted);
+            }
+            .sample-list a {
+                font-family: var(--mono);
+                font-size: 13px;
+                text-decoration: none;
+                color: var(--text-primary);
+                border-bottom: 1px solid var(--line);
+            }
+            .sample-list a:hover {
+                border-color: var(--lane-4);
+                color: var(--lane-4);
+            }
 
-  .url-row{
-    display:flex; align-items:center; gap:8px;
-    background:var(--bg-base);
-    border:1px solid var(--line);
-    border-radius:7px;
-    padding:9px 10px;
-    margin-top:12px;
-    min-width:0;
-  }
-  .url-row code{
-    font-family:var(--mono);
-    font-size:12.5px;
-    color:var(--text-primary);
-    overflow-x:auto;
-    white-space:nowrap;
-    flex:1;
-    min-width:0;
-  }
-  .copy-btn{
-    font-family:var(--mono);
-    font-size:11px;
-    color:var(--text-muted);
-    background:transparent;
-    border:1px solid var(--line);
-    border-radius:5px;
-    padding:5px 8px;
-    cursor:pointer;
-    flex-shrink:0;
-    transition:color .15s ease, border-color .15s ease;
-  }
-  .copy-btn:hover{color:var(--text-primary); border-color:var(--lane-4);}
-  .copy-btn.copied{color:var(--lane-6); border-color:var(--lane-6);}
+            /* notes list */
+            .notes {
+                list-style: none;
+                margin: 0;
+                padding: 0;
+                display: grid;
+                gap: 14px;
+            }
+            .notes li {
+                display: flex;
+                gap: 14px;
+                padding-bottom: 14px;
+                border-bottom: 1px solid var(--line);
+            }
+            .notes li:last-child {
+                border-bottom: none;
+                padding-bottom: 0;
+            }
+            .notes .dot {
+                flex-shrink: 0;
+                width: 8px;
+                height: 8px;
+                border-radius: 50%;
+                margin-top: 8px;
+            }
+            .notes li:nth-child(1) .dot {
+                background: var(--lane-3);
+            }
+            .notes li:nth-child(2) .dot {
+                background: var(--lane-5);
+            }
+            .notes li:nth-child(3) .dot {
+                background: var(--lane-4);
+            }
+            .notes li:nth-child(4) .dot {
+                background: var(--lane-6);
+            }
+            .notes li:nth-child(5) .dot {
+                background: var(--lane-1);
+                border: 1px solid var(--line);
+            }
+            .notes p {
+                margin: 0;
+                color: var(--text-muted);
+                font-size: 14.5px;
+            }
+            .notes strong {
+                color: var(--text-primary);
+                font-weight: 600;
+            }
 
-  /* sample links */
-  .sample-list{list-style:none; margin:0; padding:0; display:grid; gap:10px;}
-  .sample-list li{
-    display:flex; align-items:center; justify-content:space-between; gap:16px;
-    background:var(--bg-panel);
-    border:1px solid var(--line);
-    border-radius:8px;
-    padding:13px 16px;
-  }
-  .sample-list .label{font-size:14px; color:var(--text-muted);}
-  .sample-list a{
-    font-family:var(--mono); font-size:13px; text-decoration:none;
-    color:var(--text-primary); border-bottom:1px solid var(--line);
-  }
-  .sample-list a:hover{border-color:var(--lane-4); color:var(--lane-4);}
+            /* related repo table */
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                font-size: 14.5px;
+            }
+            th {
+                text-align: left;
+                font-family: var(--mono);
+                font-size: 11.5px;
+                color: var(--text-faint);
+                text-transform: uppercase;
+                letter-spacing: 0.05em;
+                padding: 0 0 10px;
+                font-weight: 500;
+                border-bottom: 1px solid var(--line);
+            }
+            td {
+                padding: 14px 0;
+                border-bottom: 1px solid var(--line);
+                vertical-align: top;
+            }
+            td a {
+                color: var(--lane-4);
+                text-decoration: none;
+            }
+            td a:hover {
+                text-decoration: underline;
+            }
 
-  /* notes list */
-  .notes{list-style:none; margin:0; padding:0; display:grid; gap:14px;}
-  .notes li{
-    display:flex; gap:14px;
-    padding-bottom:14px;
-    border-bottom:1px solid var(--line);
-  }
-  .notes li:last-child{border-bottom:none; padding-bottom:0;}
-  .notes .dot{
-    flex-shrink:0; width:8px; height:8px; border-radius:50%; margin-top:8px;
-  }
-  .notes li:nth-child(1) .dot{background:var(--lane-3);}
-  .notes li:nth-child(2) .dot{background:var(--lane-5);}
-  .notes li:nth-child(3) .dot{background:var(--lane-4);}
-  .notes li:nth-child(4) .dot{background:var(--lane-6);}
-  .notes li:nth-child(5) .dot{background:var(--lane-1); border:1px solid var(--line);}
-  .notes p{margin:0; color:var(--text-muted); font-size:14.5px;}
-  .notes strong{color:var(--text-primary); font-weight:600;}
+            footer {
+                padding: 36px 0 60px;
+                color: var(--text-faint);
+                font-size: 13px;
+            }
+            footer .foot-row {
+                display: flex;
+                justify-content: space-between;
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+            footer a {
+                color: var(--text-muted);
+                text-decoration: none;
+            }
+            footer a:hover {
+                color: var(--text-primary);
+            }
+        </style>
+    </head>
 
-  /* related repo table */
-  table{width:100%; border-collapse:collapse; font-size:14.5px;}
-  th{
-    text-align:left; font-family:var(--mono); font-size:11.5px;
-    color:var(--text-faint); text-transform:uppercase; letter-spacing:0.05em;
-    padding:0 0 10px; font-weight:500;
-    border-bottom:1px solid var(--line);
-  }
-  td{padding:14px 0; border-bottom:1px solid var(--line); vertical-align:top;}
-  td a{color:var(--lane-4); text-decoration:none;}
-  td a:hover{text-decoration:underline;}
-
-  footer{padding:36px 0 60px; color:var(--text-faint); font-size:13px;}
-  footer .foot-row{display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px;}
-  footer a{color:var(--text-muted); text-decoration:none;}
-  footer a:hover{color:var(--text-primary);}
-</style>
-</head>
-
-<body>
-  <div class="lane-strip">
-    <span class="l1"></span><span class="l2"></span><span class="l3"></span>
-    <span class="l4"></span><span class="l5"></span><span class="l6"></span>
-  </div>
-
-  <div class="wrap">
-    <header class="hero">
-      <div class="eyebrow">
-        <span class="pill">UNOFFICIAL</span>
-        <span>全国24場対応・出走表データ</span>
-      </div>
-
-      <div class="lane-board" aria-hidden="true">
-        <span class="num n1">1</span><span class="num n2">2</span><span class="num n3">3</span>
-        <span class="num n4">4</span><span class="num n5">5</span><span class="num n6">6</span>
-      </div>
-
-      <h1>Boatrace Open<br>API <span class="accent">for Programs</span></h1>
-      <p class="lede">
-        ボートレースの<strong>出走表データ</strong>をJSON形式で配信する非公式APIです。GitHub Actionsが約3時間おきにデータを更新し、GitHub Pages上でホストしています。
-      </p>
-
-      <div class="hero-actions">
-        <a class="btn primary" href="https://boatraceopenapi.github.io/programs/v3/today.json">本日の出走表を見る (v3)</a>
-        <a class="btn" href="https://github.com/boatraceopenapi/programs">GitHubリポジトリ</a>
-      </div>
-    </header>
-
-    <div class="board">
-      <div class="board-head">⚠ Deprecated</div>
-      <p>本リポジトリ（Boatrace Open API for Programs）は<strong style="color:#fff;">今後の利用が推奨されません</strong>。今後は後継リポジトリの <a href="https://github.com/boatraceopenapi/api">boatraceopenapi/api</a> をご利用ください。</p>
-      <p class="note">ℹ️ なお、非推奨ではありますがデータ更新・API配信自体は引き続き稼働しています。既存の利用箇所を直ちに移行する必要はなく、現状のまま継続してご利用いただくことも可能です。ただし将来的に更新が停止される可能性もあるため、可能な範囲で後継APIへの移行をご検討ください。</p>
-    </div>
-
-    <section id="endpoints">
-      <div class="section-head">
-        <h2>エンドポイント</h2>
-        <span class="tag">GET / JSON</span>
-      </div>
-      <p class="section-sub">日付は日本標準時 JST（UTC+9）基準。データが存在しない日付を指定した場合は HTTP 404 が返されます。</p>
-
-      <div class="cards">
-        <div class="card">
-          <div class="card-top">
-            <span class="ver v3">v3</span>
-            <span class="period">2023年05月01日以降</span>
-          </div>
-          <div class="url-row">
-            <code id="url-v3">https://boatraceopenapi.github.io/programs/v3/YYYY/YYYYMMDD.json</code>
-            <button class="copy-btn" data-copy="url-v3">Copy</button>
-          </div>
+    <body>
+        <div class="lane-strip">
+            <span class="l1"></span><span class="l2"></span>
+            <span class="l3"></span><span class="l4"></span>
+            <span class="l5"></span><span class="l6"></span>
         </div>
 
-        <div class="card">
-          <div class="card-top">
-            <span class="ver v2">v2</span>
-            <span class="period">2025年05月01日以降</span>
-          </div>
-          <div class="url-row">
-            <code id="url-v2">https://boatraceopenapi.github.io/programs/v2/YYYY/YYYYMMDD.json</code>
-            <button class="copy-btn" data-copy="url-v2">Copy</button>
-          </div>
+        <div class="wrap">
+            <header class="hero">
+                <div class="eyebrow">
+                    <span class="pill">UNOFFICIAL</span>
+                    <span>全国24場対応・出走表データ</span>
+                </div>
+
+                <div class="lane-board" aria-hidden="true">
+                    <span class="num n1">1</span><span class="num n2">2</span>
+                    <span class="num n3">3</span><span class="num n4">4</span>
+                    <span class="num n5">5</span><span class="num n6">6</span>
+                </div>
+
+                <h1>
+                    Boatrace Open<br />API
+                    <span class="accent">for Programs</span>
+                </h1>
+
+                <p class="lede">
+                    ボートレースの<strong>出走表データ</strong>を JSON 形式で配信する非公式 API です。
+                    GitHub Actions が約 3 時間おきにデータを更新して GitHub Pages 上でホストしています。
+                </p>
+
+                <div class="hero-actions">
+                    <a class="btn primary" href="https://boatraceopenapi.github.io/programs/v3/today.json">本日の出走表を見る (v3)</a>
+                    <a class="btn" href="https://github.com/boatraceopenapi/programs">GitHubリポジトリ</a>
+                </div>
+            </header>
+
+            <div class="board">
+                <div class="board-head">⚠ Deprecated</div>
+
+                <p>
+                    本リポジトリ（Boatrace Open API for Programs）は
+                    <strong style="color: #fff">今後の利用が推奨されません</strong>。
+                    今後は後継リポジトリの
+                    <a href="https://github.com/boatraceopenapi/api">boatraceopenapi/api</a>
+                    をご利用ください。
+                </p>
+
+                <p class="note">
+                    ℹ️ なお、非推奨ではありますがデータ更新・API 配信自体は引き続き稼働しています。
+                    既存の利用箇所を直ちに移行する必要はなく、現状のまま継続してご利用いただくことも可能です。
+                    ただし将来的に更新が停止される可能性もあるため、可能な範囲で後継 API への移行をご検討ください。
+                </p>
+            </div>
+
+            <section id="endpoints">
+                <div class="section-head">
+                    <h2>エンドポイント</h2>
+                    <span class="tag">GET / JSON</span>
+                </div>
+
+                <p class="section-sub">
+                    日付は日本標準時
+                    JST（UTC+9）基準。データが存在しない日付を指定した場合は
+                    HTTP 404 が返されます。
+                </p>
+
+                <div class="cards">
+                    <div class="card">
+                        <div class="card-top">
+                            <span class="ver v3">v3</span>
+                            <span class="period">2023年05月01日以降</span>
+                        </div>
+
+                        <div class="url-row">
+                            <code id="url-v3">https://boatraceopenapi.github.io/programs/v3/YYYY/YYYYMMDD.json</code>
+                            <button class="copy-btn" data-copy="url-v3">Copy</button>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-top">
+                            <span class="ver v2">v2</span>
+                            <span class="period">2025年05月01日以降</span>
+                        </div>
+
+                        <div class="url-row">
+                            <code id="url-v2">https://boatraceopenapi.github.io/programs/v2/YYYY/YYYYMMDD.json</code>
+                            <button class="copy-btn" data-copy="url-v2">Copy</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="samples">
+                <div class="section-head">
+                    <h2>サンプル</h2>
+                </div>
+
+                <ul class="sample-list">
+                    <li>
+                        <span class="label">本日の出走表（v3）</span>
+                        <a href="https://boatraceopenapi.github.io/programs/v3/today.json">/v3/today.json</a>
+                    </li>
+
+                    <li>
+                        <span class="label">2025年05月01日の出走表（v3）</span>
+                        <a href="https://boatraceopenapi.github.io/programs/v3/2025/20250501.json">/v3/2025/20250501.json</a>
+                    </li>
+
+                    <li>
+                        <span class="label">本日の出走表（v2）</span>
+                        <a href="https://boatraceopenapi.github.io/programs/v2/today.json">/v2/today.json</a>
+                    </li>
+
+                    <li>
+                        <span class="label">2025年05月01日の出走表（v2）</span>
+                        <a href="https://boatraceopenapi.github.io/programs/v2/2025/20250501.json">/v2/2025/20250501.json</a>
+                    </li>
+                </ul>
+            </section>
+
+            <section id="notes">
+                <div class="section-head">
+                    <h2>注意事項</h2>
+                </div>
+
+                <ul class="notes">
+                    <li>
+                        <div class="dot"></div>
+                        <p><strong>非公式です。</strong>BOATRACE 公式サイトおよび関連団体とは一切関係ありません。</p>
+                    </li>
+
+                    <li>
+                        <div class="dot"></div>
+                        <p><strong>リアルタイムではありません。</strong>GitHub Actions による約 3 時間間隔の定期更新のため、反映まで数分〜数時間の遅れが生じる場合があります。</p>
+                    </li>
+
+                    <li>
+                        <div class="dot"></div>
+                        <p><strong>正確性・完全性は保証していません。</strong>収集・変換の都合により、欠損や誤りが含まれる可能性があります。</p>
+                    </li>
+
+                    <li>
+                        <div class="dot"></div>
+                        <p><strong>公式情報が必要な場合は、</strong>必ずBOATRACE公式サイトをご確認ください。</p>
+                    </li>
+
+                    <li>
+                        <div class="dot"></div>
+                        <p><strong>利用は自己責任で</strong>お願いします。</p>
+                    </li>
+                </ul>
+            </section>
+
+            <section id="related">
+                <div class="section-head">
+                    <h2>関連リポジトリ</h2>
+                </div>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>対象</th>
+                            <th>リポジトリ</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td>🆕 後継 API</td>
+                            <td><a href="https://github.com/boatraceopenapi/api">boatraceopenapi/api</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <footer>
+                <div class="lane-strip" style="margin-bottom: 24px; border-radius: 4px; overflow: hidden;">
+                    <span class="l1"></span><span class="l2"></span>
+                    <span class="l3"></span><span class="l4"></span>
+                    <span class="l5"></span><span class="l6"></span>
+                </div>
+
+                <div class="foot-row">
+                    <span>Boatrace Open API for Programs — MIT License</span>
+                    <a href="https://github.com/boatraceopenapi/programs">github.com/boatraceopenapi/programs</a>
+                </div>
+            </footer>
         </div>
-      </div>
-    </section>
 
-    <section id="samples">
-      <div class="section-head">
-        <h2>サンプル</h2>
-      </div>
-      <ul class="sample-list">
-        <li>
-          <span class="label">本日の出走表（v3）</span>
-          <a href="https://boatraceopenapi.github.io/programs/v3/today.json">/v3/today.json</a>
-        </li>
-        <li>
-          <span class="label">2025年05月01日の出走表（v3）</span>
-          <a href="https://boatraceopenapi.github.io/programs/v3/2025/20250501.json">/v3/2025/20250501.json</a>
-        </li>
-        <li>
-          <span class="label">本日の出走表（v2）</span>
-          <a href="https://boatraceopenapi.github.io/programs/v2/today.json">/v2/today.json</a>
-        </li>
-        <li>
-          <span class="label">2025年05月01日の出走表（v2）</span>
-          <a href="https://boatraceopenapi.github.io/programs/v2/2025/20250501.json">/v2/2025/20250501.json</a>
-        </li>
-      </ul>
-    </section>
-
-    <section id="notes">
-      <div class="section-head">
-        <h2>注意事項</h2>
-      </div>
-      <ul class="notes">
-        <li><div class="dot"></div><p><strong>非公式です。</strong>BOATRACE公式サイトおよび関連団体とは一切関係ありません。</p></li>
-        <li><div class="dot"></div><p><strong>リアルタイムではありません。</strong>GitHub Actionsによる約3時間間隔の定期更新のため、反映まで数分〜数時間の遅れが生じる場合があります。</p></li>
-        <li><div class="dot"></div><p><strong>正確性・完全性は保証していません。</strong>収集・変換の都合により、欠損や誤りが含まれる可能性があります。</p></li>
-        <li><div class="dot"></div><p><strong>公式情報が必要な場合は、</strong>必ずBOATRACE公式サイトをご確認ください。</p></li>
-        <li><div class="dot"></div><p><strong>利用は自己責任で</strong>お願いします。</p></li>
-      </ul>
-    </section>
-
-    <section id="related">
-      <div class="section-head">
-        <h2>関連リポジトリ</h2>
-      </div>
-      <table>
-        <thead>
-          <tr><th>対象</th><th>リポジトリ</th></tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>🆕 後継 API</td>
-            <td><a href="https://github.com/boatraceopenapi/api">boatraceopenapi/api</a></td>
-          </tr>
-        </tbody>
-      </table>
-    </section>
-
-    <footer>
-      <div class="lane-strip" style="margin-bottom:24px; border-radius:4px; overflow:hidden;">
-        <span class="l1"></span><span class="l2"></span><span class="l3"></span>
-        <span class="l4"></span><span class="l5"></span><span class="l6"></span>
-      </div>
-      <div class="foot-row">
-        <span>Boatrace Open API for Programs — MIT License</span>
-        <a href="https://github.com/boatraceopenapi/programs">github.com/boatraceopenapi/programs</a>
-      </div>
-    </footer>
-  </div>
-
-<script>
-  document.querySelectorAll('.copy-btn').forEach(function(btn){
-    btn.addEventListener('click', function(){
-      var target = document.getElementById(btn.dataset.copy);
-      var text = target.textContent;
-      navigator.clipboard.writeText(text).then(function(){
-        var original = btn.textContent;
-        btn.textContent = 'Copied';
-        btn.classList.add('copied');
-        setTimeout(function(){
-          btn.textContent = original;
-          btn.classList.remove('copied');
-        }, 1500);
-      });
-    });
-  });
-</script>
-</body>
+        <script>
+            document.querySelectorAll('.copy-btn').forEach(function (btn) {
+                btn.addEventListener('click', function () {
+                    var target = document.getElementById(btn.dataset.copy);
+                    var text = target.textContent;
+                    navigator.clipboard.writeText(text).then(function () {
+                        var original = btn.textContent;
+                        btn.textContent = 'Copied';
+                        btn.classList.add('copied');
+                        setTimeout(function () {
+                            btn.textContent = original;
+                            btn.classList.remove('copied');
+                        }, 1500);
+                    });
+                });
+            });
+        </script>
+    </body>
 </html>
