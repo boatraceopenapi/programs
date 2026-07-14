@@ -4,7 +4,7 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Boatrace Open API for Programs</title>
-        <meta name="description" content="ボートレース出走表データを配信する非公式オープンAPI。全国24場・v2/v3エンドポイント対応。" />
+        <meta name="description" content="ボートレースの出走表データを配信する非公式オープン API" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link href="https://fonts.googleapis.com/css2?family=Teko:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
@@ -394,6 +394,22 @@
                 white-space: nowrap;
                 flex: 1;
                 min-width: 0;
+                padding-bottom: 6px;
+                scrollbar-width: thin;
+                scrollbar-color: var(--line) transparent;
+            }
+            .url-row code::-webkit-scrollbar {
+                height: 4px;
+            }
+            .url-row code::-webkit-scrollbar-track {
+                background: transparent;
+            }
+            .url-row code::-webkit-scrollbar-thumb {
+                background: var(--line);
+                border-radius: 999px;
+            }
+            .url-row code::-webkit-scrollbar-thumb:hover {
+                background: var(--amber);
             }
             .copy-btn {
                 font-family: var(--mono);
@@ -565,7 +581,7 @@
             <header class="hero">
                 <div class="eyebrow">
                     <span class="pill">UNOFFICIAL</span>
-                    <span>全国24場対応・出走表データ</span>
+                    <span>全国 24 場対応・出走表データ</span>
                 </div>
 
                 <div class="lane-board" aria-hidden="true">
@@ -575,7 +591,7 @@
                 </div>
 
                 <h1>
-                    Boatrace Open<br />API
+                    Boatrace Open<br>API
                     <span class="accent">for Programs</span>
                 </h1>
 
@@ -586,7 +602,7 @@
 
                 <div class="hero-actions">
                     <a class="btn primary" href="https://boatraceopenapi.github.io/programs/v3/today.json">本日の出走表を見る (v3)</a>
-                    <a class="btn" href="https://github.com/boatraceopenapi/programs">GitHubリポジトリ</a>
+                    <a class="btn" href="https://github.com/boatraceopenapi/programs">GitHub リポジトリ</a>
                 </div>
             </header>
 
@@ -698,7 +714,7 @@
 
                     <li>
                         <div class="dot"></div>
-                        <p><strong>公式情報が必要な場合は、</strong>必ずBOATRACE公式サイトをご確認ください。</p>
+                        <p><strong>公式情報が必要な場合は、</strong>必ず BOATRACE 公式サイトをご確認ください。</p>
                     </li>
 
                     <li>
