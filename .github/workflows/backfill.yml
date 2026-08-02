@@ -20,7 +20,7 @@ env:
   TARGET_BRANCH: gh-pages
 
 jobs:
-  deploy-v3:
+  deploy-v2:
     runs-on: ubuntu-24.04
     strategy:
       matrix:
@@ -54,9 +54,9 @@ jobs:
           composer remove bvp/scraper --no-update || true
           composer install --prefer-dist --no-interaction --no-progress
 
-      - name: Require bvp/scraper ^6.0
+      - name: Require bvp/scraper ^5.0
         run: |
-          composer require bvp/scraper:^6.0 --no-update
+          composer require bvp/scraper:^5.0 --no-update
           composer update bvp/scraper --with-dependencies
           composer install --prefer-dist --no-interaction --no-progress
 
@@ -72,7 +72,7 @@ jobs:
         run: |
           set -e
 
-          STOP_FILE="docs/v3/.backfill-limit-reached"
+          STOP_FILE="docs/v2/.backfill-limit-reached"
           if [ -f "$STOP_FILE" ]; then
             echo "既に取得限界に達しています（$STOP_FILE を参照）。スキップします。"
             echo "files_changed=false" >> "$GITHUB_OUTPUT"
@@ -83,7 +83,7 @@ jobs:
           CHANGED=""
 
           for i in $(seq 1 "$DAYS"); do
-            oldest=$(find docs/v3 -regextype posix-extended -regex '.*/[0-9]{4}/[0-9]{8}\.json' | sort 2>/dev/null | head -n1)
+            oldest=$(find docs/v2 -regextype posix-extended -regex '.*/[0-9]{4}/[0-9]{8}\.json' | sort 2>/dev/null | head -n1)
             if [ -z "$oldest" ]; then
               echo "既存の日付付き JSON が見つかりません。中断します。"
               exit 1
@@ -96,14 +96,14 @@ jobs:
 
             echo "::group::Backfill ${target_date}"
             set +e
-            php bin/backfill.php v3 "$target_date"
+            php bin/backfill.php v2 "$target_date"
             code=$?
             set -e
             echo "::endgroup::"
 
             if [ $code -eq 2 ]; then
               echo "${target_date} のデータが取得できませんでした。取得限界とみなして停止します。"
-              mkdir -p docs/v3
+              mkdir -p docs/v2
               echo "${target_date}" > "$STOP_FILE"
               CHANGED="${CHANGED} ${STOP_FILE}"
               break
@@ -112,7 +112,7 @@ jobs:
               exit $code
             fi
 
-            f="docs/v3/${target_y}/${target_ymd}.json"
+            f="docs/v2/${target_y}/${target_ymd}.json"
             if ! jq empty "$f" 2>/dev/null; then
               echo "::error::invalid JSON: $f"
               exit 1
@@ -134,7 +134,7 @@ jobs:
         run: |
           git add $(cat /tmp/changed_files.txt)
 
-          git commit -m "chore: deploy JSON files to docs/v3" || {
+          git commit -m "chore: deploy JSON files to docs/v2" || {
             echo "Nothing to commit."
             exit 0
           }
