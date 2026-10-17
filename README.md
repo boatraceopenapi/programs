@@ -47,13 +47,13 @@
 
 ## 🌐 エンドポイント
 
-**v3**（対応期間: 2023年05月01日以降）
+**v3**（対応期間: 2016年08月01日以降）
 
 ```bash
 https://boatraceopenapi.github.io/programs/v3/YYYY/YYYYMMDD.json
 ```
 
-**v2**（対応期間: 2025年05月01日以降）
+**v2**（対応期間: 2016年08月01日以降）
 
 ```bash
 https://boatraceopenapi.github.io/programs/v2/YYYY/YYYYMMDD.json
