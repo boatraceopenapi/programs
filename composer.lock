@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "bvp/converter",
-            "version": "6.0.0",
+            "version": "6.0.1",
             "source": {
                 "type": "git",
-                "url": "https://github.com/shimomo/bvp-converter.git",
-                "reference": "cd177c1f61bae4f8cc6dfaf9a4ef37d18b082318"
+                "url": "https://github.com/boatracevibeproject/converter.git",
+                "reference": "d8919b3bd98ea74ece039754a66b1c49bd5d1453"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/shimomo/bvp-converter/zipball/cd177c1f61bae4f8cc6dfaf9a4ef37d18b082318",
-                "reference": "cd177c1f61bae4f8cc6dfaf9a4ef37d18b082318",
+                "url": "https://api.github.com/repos/boatracevibeproject/converter/zipball/d8919b3bd98ea74ece039754a66b1c49bd5d1453",
+                "reference": "d8919b3bd98ea74ece039754a66b1c49bd5d1453",
                 "shasum": ""
             },
             "require": {
@@ -58,7 +58,7 @@
                 "issues": "https://github.com/shimomo/bvp-converter/issues",
                 "source": "https://github.com/shimomo/bvp-converter"
             },
-            "time": "2025-12-31T06:07:41+00:00"
+            "time": "2026-11-01T15:16:17+00:00"
         },
         {
             "name": "bvp/prefecture",
@@ -113,16 +113,16 @@
         },
         {
             "name": "bvp/scraper",
-            "version": "6.1.4",
+            "version": "6.1.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/boatracevibeproject/scraper.git",
-                "reference": "4df7281b4f3c556b9bd2bac74b5c2da6f6ca72fc"
+                "reference": "537873b09cc60d434cff037ef02657243c2b4be6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/boatracevibeproject/scraper/zipball/4df7281b4f3c556b9bd2bac74b5c2da6f6ca72fc",
-                "reference": "4df7281b4f3c556b9bd2bac74b5c2da6f6ca72fc",
+                "url": "https://api.github.com/repos/boatracevibeproject/scraper/zipball/537873b09cc60d434cff037ef02657243c2b4be6",
+                "reference": "537873b09cc60d434cff037ef02657243c2b4be6",
                 "shasum": ""
             },
             "require": {
@@ -165,7 +165,7 @@
                 "issues": "https://github.com/shimomo/bvp-scraper/issues",
                 "source": "https://github.com/shimomo/bvp-scraper"
             },
-            "time": "2026-07-11T15:52:19+00:00"
+            "time": "2026-11-01T15:17:00+00:00"
         },
         {
             "name": "bvp/stadium",
