@@ -14,7 +14,7 @@
         "source": "https://github.com/boatraceopenapi/programs"
     },
     "require": {
-        "php": "^8.4",
+        "php": "^8.5",
         "bvp/scraper": "^6.0",
         "nesbot/carbon": "^2.63 || ^3.0"
     },

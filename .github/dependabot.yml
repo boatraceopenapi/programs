@@ -1,15 +1,26 @@
 version: 2
 updates:
+  - package-ecosystem: "composer"
+    directory: "/"
+    schedule:
+      interval: "monthly"
+      timezone: "Asia/Tokyo"
+    groups:
+      composer-minor-patch:
+        patterns: ["*"]
+        update-types: ["minor", "patch"]
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "bvp/scraper"
+    labels: ["dependencies", "composer"]
+
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
-      interval: "weekly"
-      day: "monday"
-      time: "09:00"
+      interval: "monthly"
       timezone: "Asia/Tokyo"
-    commit-message:
-      prefix: "chore"
-      prefix-development: "chore"
-      include: "scope"
-    labels: ["dependencies", "github-actions"]
-    open-pull-requests-limit: 10
+    groups:
+      actions:
+        patterns: ["*"]
+    labels: ["dependencies", "ci"]
