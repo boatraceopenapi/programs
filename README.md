@@ -67,6 +67,28 @@ https://boatraceopenapi.github.io/programs/v2/YYYY/YYYYMMDD.json
 
 ---
 
+## 📦 レスポンス仕様
+
+レスポンスの JSON 構造・各フィールドの詳細・v2 との違いについては、スキーマドキュメントを参照してください。
+
+→ [docs/schema.md](docs/schema.md)
+
+`stadium_number`（レース場）や `racer_class_number`（級別）などのコード値の意味は、後継 API のコード表を参照してください。
+
+→ [boatraceopenapi/api の docs/v1/codes.md](https://github.com/boatraceopenapi/api/blob/gh-pages/docs/v1/codes.md)
+
+---
+
+## 🤖 AI エージェントで利用する場合
+
+Claude Code や Codex などの AI エージェントにデータの取り込みや分析を任せる場合は、次の URL を読ませてください。
+
+```
+https://boatraceopenapi.github.io/programs/llms.txt
+```
+
+---
+
 ## 💡 サンプル
 
 **v3**
@@ -86,6 +108,8 @@ https://boatraceopenapi.github.io/programs/v2/YYYY/YYYYMMDD.json
 | 対象 | リポジトリ |
 |---|---|
 | 後継 API | [boatraceopenapi/api](https://github.com/boatraceopenapi/api) |
+| 直前情報 | [boatraceopenapi/previews](https://github.com/boatraceopenapi/previews) |
+| 結果 | [boatraceopenapi/results](https://github.com/boatraceopenapi/results) |
 
 ---
 

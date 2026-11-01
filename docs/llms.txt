@@ -1,0 +1,34 @@
+# Boatrace Open API for Programs
+
+> ボートレース（競艇）全 24 場の出走表を、1 日 1 ファイルの JSON で配信する非公式 API です。GitHub Pages 上の静的ファイルで、認証は不要です。
+
+**この API は非推奨です。** 新しくデータを取り込む場合は、出走表・直前情報・結果・払戻を 1 ファイルにまとめた後継の [boatraceopenapi/api](https://boatraceopenapi.github.io/api/llms.txt) を使ってください。この API は既存の利用のために更新を続けています。
+
+## 取得方法
+
+- 日別: `https://boatraceopenapi.github.io/programs/v3/YYYY/YYYYMMDD.json`（日付は JST、2016-08-01 以降）
+- 当日・前日: `https://boatraceopenapi.github.io/programs/v3/today.json`・`yesterday.json`（約 3 時間ごとに上書き）
+- v2（`/programs/v2/...`、2016-10-01 以降）はフィールド名が古い版です。新しく使うなら v3 にしてください。
+- データがない日付は HTTP 404 を返します。
+- 過去分を一括で取り込むときは、1 日ずつ順番に取得し、間隔を空けてください。取得したファイルはローカルに保存し、同じ日付を何度も取りに行かないでください。
+
+## 必ず守ること
+
+- `*_number` の多くはコード値です。数値として平均・並べ替え・比較せず、[コード表](https://boatraceopenapi.github.io/api/v1/codes.md) で意味に変換してください。`racer_class_number` はコード表の `rank_number` です。
+- `racer_national_top_1_percent`・`racer_local_top_1_percent` は名前に反して勝率です（% ではありません）。`*_top_2_percent`・`*_top_3_percent` は 2 連率・3 連率（%）です。
+- レースのキーは `(date, stadium_number, number)`、出走艇のキーはそれに `racer_boat_number`（枠番）を加えたものです。選手は `racer_number`（登録番号）で識別します。
+- 12 レースすべての値が `null` の場・日があります。集計から除外してください。
+- `racer_weight` の `0` は欠損です。`racer_average_start_timing` はスタート実績がない選手では `null` です。
+- `racer_birthplace_number` は、京都出身の選手が `13`（東京）になっています。出身地を使う集計では注意してください。
+- 当日のファイルは途中の状態です。確定した過去データとして使うのは、翌々日以降に取得したファイルにしてください。
+
+## ドキュメント
+
+- [スキーマ](https://boatraceopenapi.github.io/programs/schema.md): JSON の構造と全フィールドの説明、データの注意点、v2 との違い
+- [コード表](https://boatraceopenapi.github.io/api/v1/codes.md): レース場・グレード・級別・支部などの番号と意味（後継 API と共通）
+
+## その他
+
+- 直前情報は [previews](https://boatraceopenapi.github.io/previews/llms.txt)、結果・払戻は [results](https://boatraceopenapi.github.io/results/llms.txt) で配信しています。同じキーで結合できます。
+- [README](https://github.com/boatraceopenapi/programs/blob/gh-pages/README.md): 注意事項・対応期間・ライセンス（MIT）
+- 非公式のデータで、正確性は保証されていません。公式の情報は BOATRACE 公式サイトで確認してください。
