@@ -30,5 +30,5 @@
 ## その他
 
 - 直前情報は [previews](https://boatraceopenapi.github.io/previews/llms.txt)、結果・払戻は [results](https://boatraceopenapi.github.io/results/llms.txt) で配信しています。同じキーで結合できます。
-- [README](https://github.com/boatraceopenapi/programs/blob/gh-pages/README.md): 注意事項・対応期間・ライセンス（MIT）
-- 非公式のデータで、正確性は保証されていません。公式の情報は BOATRACE 公式サイトで確認してください。
+- [README](https://github.com/boatraceopenapi/programs/blob/gh-pages/README.md): 注意事項・対応期間・ライセンス（ソースコードは MIT、配信データは対象外）
+- 非公式のデータで、正確性は保証されていません。公式の情報は BOAT RACE 公式サイトで確認してください。
