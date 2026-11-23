@@ -36,7 +36,7 @@
 
 ## 📝 概要
 
-この API では、ボートレース（競艇）のデータを取得できます。データは GitHub Pages 上で公開されており、JSON 形式で提供されます。
+本 API では、ボートレース（競艇）のデータを取得できます。データは GitHub Pages 上で公開されており、JSON 形式で提供されます。
 
 | 項目 | 内容 |
 |---|---|
@@ -94,12 +94,12 @@ https://boatraceopenapi.github.io/programs/llms.txt
 **v3**
 
 - 2025年05月01日の出走表: [https://boatraceopenapi.github.io/programs/v3/2025/20250501.json](https://boatraceopenapi.github.io/programs/v3/2025/20250501.json)
-- 本日の出走表（JST基準）: [https://boatraceopenapi.github.io/programs/v3/today.json](https://boatraceopenapi.github.io/programs/v3/today.json)
+- 本日の出走表（JST 基準）: [https://boatraceopenapi.github.io/programs/v3/today.json](https://boatraceopenapi.github.io/programs/v3/today.json)
 
 **v2**
 
 - 2025年05月01日の出走表: [https://boatraceopenapi.github.io/programs/v2/2025/20250501.json](https://boatraceopenapi.github.io/programs/v2/2025/20250501.json)
-- 本日の出走表（JST基準）: [https://boatraceopenapi.github.io/programs/v2/today.json](https://boatraceopenapi.github.io/programs/v2/today.json)
+- 本日の出走表（JST 基準）: [https://boatraceopenapi.github.io/programs/v2/today.json](https://boatraceopenapi.github.io/programs/v2/today.json)
 
 ---
 
@@ -117,4 +117,4 @@ https://boatraceopenapi.github.io/programs/llms.txt
 
 Boatrace Open API for Programs のソースコードは [MIT license](LICENSE) の下で公開されています。
 
-API で配信しているデータは BOAT RACE 公式サイトの公開情報を元にしており、MIT license の対象ではありません。データの権利は本プロジェクトにはないため、データの利用条件（商用利用を含む）についてお答えすることはできません。利用の可否は元データの権利者にご確認ください。
+API で配信しているデータは BOAT RACE 公式サイトの公開情報を基にしており、MIT license の対象ではありません。データの権利は本プロジェクトにはないため、データの利用条件（商用利用を含む）についてお答えすることはできません。利用の可否は元データの権利者にご確認ください。

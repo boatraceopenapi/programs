@@ -2,12 +2,12 @@
 
 > ボートレース（競艇）全 24 場の出走表を、1 日 1 ファイルの JSON で配信する非公式 API です。GitHub Pages 上の静的ファイルで、認証は不要です。
 
-**この API は非推奨です。** 新しくデータを取り込む場合は、出走表・直前情報・結果・払戻を 1 ファイルにまとめた後継の [boatraceopenapi/api](https://boatraceopenapi.github.io/api/llms.txt) を使ってください。この API は既存の利用のために更新を続けています。
+**本 API は非推奨です。** 新しくデータを取り込む場合は、出走表・直前情報・結果・払戻を 1 ファイルにまとめた後継の [boatraceopenapi/api](https://boatraceopenapi.github.io/api/llms.txt) を使ってください。本 API は既存の利用のために更新を続けています。
 
 ## 取得方法
 
 - 日別: `https://boatraceopenapi.github.io/programs/v3/YYYY/YYYYMMDD.json`（日付は JST、2016-08-01 以降）
-- 当日・前日: `https://boatraceopenapi.github.io/programs/v3/today.json`・`yesterday.json`（約 3 時間ごとに上書き）
+- 当日・前日: `https://boatraceopenapi.github.io/programs/v3/today.json`・`yesterday.json`（約 3 時間間隔で上書き）
 - v2（`/programs/v2/...`、2016-10-01 以降）はフィールド名が古い版です。新しく使うなら v3 にしてください。
 - データがない日付は HTTP 404 を返します。
 - 過去分を一括で取り込むときは、1 日ずつ順番に取得し、間隔を空けてください。取得したファイルはローカルに保存し、同じ日付を何度も取りに行かないでください。
